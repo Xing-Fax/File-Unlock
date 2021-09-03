@@ -32,9 +32,9 @@
 
 ## 鸣谢
 
-感谢jetand的fileunlocker项目，对程序提供了很大的帮助
+感谢ez8-co的unlockerr项目，对程序提供了很大的帮助
 
-项目地址：https://github.com/jetand/fileunlocker
+项目地址：https://github.com/ez8-co/unlocker
 
 ## 最后
 
