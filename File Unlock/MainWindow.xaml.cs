@@ -3,6 +3,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -29,6 +31,13 @@ namespace File_Unlock
         public MainWindow()
         {
             InitializeComponent();
+
+            if (check.Document_verification() != true)
+            {
+                MessageBox.Show("签名校验失败,程序可能被篡改,轻击确定以退出程序", "警告");
+                Environment.Exit(0);
+            }
+
             日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: 程序启动... Copyright © xcz 2021";
             Log("释放核心库文件");
             Delete_Class.File_List(Environment.GetEnvironmentVariable("TMP"));              //释放资源
@@ -88,7 +97,7 @@ namespace File_Unlock
 
         private void 关于_Click(object sender, RoutedEventArgs e)
         {
-
+            BeginStoryboard((Storyboard)FindResource("打开"));
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
@@ -190,6 +199,16 @@ namespace File_Unlock
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
         {
             输出路径.IsEnabled = true;
+        }
+
+        private void 关闭关于_Click(object sender, RoutedEventArgs e)
+        {
+            BeginStoryboard((Storyboard)FindResource("关闭"));
+        }
+
+        private void 图标_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://github.com/xingchuanzhen/File-Unlock");
         }
     }
 }
