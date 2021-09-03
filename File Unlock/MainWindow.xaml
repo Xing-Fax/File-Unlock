@@ -113,7 +113,7 @@
         <Canvas x:Name="按钮组" Margin="680,40,10,10">
             <Button x:Name="添加文件" Content="添加文件" HorizontalAlignment="Left" Height="37.878" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="添加文件_Click"/>
             <Button x:Name="选择路径" Content="选择路径" HorizontalAlignment="Left" Height="37.878" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="选择路径_Click" Canvas.Top="62.122" IsEnabled="{Binding IsEnabled, ElementName=输出路径}"/>
-            <Button x:Name="开始" Content="开始转换" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="开始_Click" Canvas.Top="365"/>
+            <Button x:Name="开始" Content="开始执行" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="开始_Click" Canvas.Top="365"/>
             <Button x:Name="打开目录" Content="打开目录" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="打开目录_Click" Canvas.Top="325" IsEnabled="{Binding IsEnabled, ElementName=输出路径}"/>
             <Button x:Name="清除日志" Content="清除日志" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="清除日志_Click" Canvas.Top="285"/>
             <Button x:Name="清空对象" Content="清空对象" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="110" FontSize="14" FontWeight="Bold" FontFamily="Microsoft YaHei UI" Click="清空对象_Click" Canvas.Top="245"/>
