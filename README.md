@@ -32,13 +32,13 @@
 
 ## 鸣谢
 
-感谢Anmol-Singh-Jaggi的File-Locker项目，对程序提供了很大的帮助
+感谢ez8-co的unlockerr项目，对程序提供了很大的帮助
 
-项目地址：https://github.com/Anmol-Singh-Jaggi/File-Locker
+项目地址：https://github.com/ez8-co/unlocker
 
 ## 最后
 
-软件下载链接：
+软件下载链接：https://wwe.lanzoui.com/b01olbszg 密码:7f7s
 
 
 
