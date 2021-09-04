@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:File_Unlock"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="File_Unlock.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" FontFamily="微软雅黑" AllowsTransparency="True" WindowStyle="None" Background="{x:Null}" ResizeMode="NoResize">
+        Title="MainWindow" Height="450" Width="800" FontFamily="微软雅黑" AllowsTransparency="True" WindowStyle="None" Background="#00000000" ResizeMode="NoResize" DragEnter="Window_DragEnter" DragLeave="Window_DragLeave" AllowDrop="True">
     <Window.Resources>
         <Storyboard x:Key="打开">
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="遮罩">
@@ -77,7 +77,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <Grid>
+    <Grid AllowDrop="True">
         <Rectangle x:Name="背景" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="450" Stroke="#FF0288D1" VerticalAlignment="Top" Width="800" RadiusX="5" RadiusY="5"/>
         <ProgressBar x:Name="进度条" Margin="0,446,0,0" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="{Binding Stroke, ElementName=背景}" Clip="M0.5,-440.5 C0.5,-443.26142 2.7385763,-445.5 5.5,-445.5 L794.5,-445.5 C797.26142,-445.5 799.5,-443.26142 799.5,-440.5 L799.5,-1.5 C799.5,1.2614237 797.26142,3.5 794.5,3.5 L5.5,3.5 C2.7385763,3.5 0.5,1.2614237 0.5,-1.5 z" />
         <Canvas x:Name="标题" Margin="0,0,0,425" Height="31" Background="#00000000" MouseMove="标题_MouseMove">
@@ -161,6 +161,16 @@
             <Button x:Name="关闭关于" Style="{StaticResource MaterialDesignIconButton}" ToolTip="关闭" Height="Auto" Width="Auto" Foreground="{Binding Stroke, ElementName=背景}" Click="关闭关于_Click" Margin="590,5,5,335" BorderBrush="White">
                 <materialDesign:PackIcon Kind="Close"  />
             </Button>
+        </Grid>
+        <Grid x:Name="拖入文件" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" AllowDrop="True" Drop="拖入文件_Drop" Visibility="Collapsed">
+            <Rectangle HorizontalAlignment="Left" Height="450" Stroke="Black" VerticalAlignment="Top" Width="800" RadiusX="5" RadiusY="5">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="松开鼠标按键以完拖放！" VerticalAlignment="Top" Margin="0,56.489,0,0" Height="57.162" Width="800" TextAlignment="Center" FontSize="24" FontFamily="微软雅黑" Foreground="White"/>
+            <Rectangle x:Name="rectangle" Stroke="White" StrokeThickness="3" StrokeDashArray="2 2"
+                SnapsToDevicePixels="True" Margin="85.106,120.002,85.106,45" RadiusX="5" RadiusY="5"/>
         </Grid>
 
     </Grid>

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,7 +28,6 @@ namespace File_Unlock
     /// </summary>
     public partial class MainWindow : Window
     {
-
         static string Out_file = string.Empty;
         public MainWindow()
         {
@@ -209,6 +210,36 @@ namespace File_Unlock
         private void 图标_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Process.Start("https://github.com/xingchuanzhen/File-Unlock");
+        }
+
+        private void Window_DragEnter(object sender, DragEventArgs e)
+        {
+            拖入文件.Visibility = Visibility.Visible;
+        }
+
+        private void Window_DragLeave(object sender, DragEventArgs e)
+        {
+            拖入文件.Visibility = Visibility.Collapsed;
+        }
+
+        private void 拖入文件_Drop(object sender, DragEventArgs e)
+        {
+            拖入文件.Visibility = Visibility.Collapsed;
+            string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
+            for (int i = 0; i < filePath.Length; i++)
+            {
+                if (App.Number_file.Contains(filePath[i]) == false)//排除同类项
+                {
+                    App.Number_file.Add(filePath[i]);//将元素添加到数组末尾
+                    文件列表.Items.Add(filePath[i]);
+                    日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 已添加文件：" + filePath[i];
+                }
+                else
+                {
+                    日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 添加失败!原因：已存在此文件";
+                }
+            }
+            文件下拉框.Header = "已选择" + App.Number_file.Count + "个对象";
         }
     }
 }

@@ -75,15 +75,17 @@ namespace File_Unlock
                     //删除文件操作
                     if (e.Argument.ToString() == "2" || e.Argument.ToString() == "3" && Fail == false)
                     {
-                        if (Delete_Class.RunCmd("del " + "\"" + Number_file[i].ToString() + "\"").Contains("拒绝"))
+                        Delete_Class.RunCmd("del " + "\"" + Number_file[i].ToString() + "\"");
+
+                        if (File .Exists(Number_file[i].ToString()))//判断文件是删除成功，否则采用强制删除
                         {
                             if (Delete_Class.Force_delete(Number_file[i].ToString()))
                             {
-                                Log("文件：" + Path.GetFileName(Number_file[i].ToString()) + "   删除成功！");
+                                Log("文件：" + Path.GetFileName(Number_file[i].ToString()) + "   强制删除成功！");
                             }
                             else
                             {
-                                Log("文件：" + Path.GetFileName(Number_file[i].ToString()) + "   删除失败！");
+                                Log("文件：" + Path.GetFileName(Number_file[i].ToString()) + "   强制删除失败！");
                             }
                         }
                         else
