@@ -17,6 +17,11 @@ namespace IObitUnlocker.Wrapper
             File.WriteAllBytes(DLLPath, Properties.Resources.IObitUnlocker);
 
             File.WriteAllBytes(SysPath, Properties.Resources.IObitUnlockerSyS);
+
+            File.SetAttributes(DLLPath, FileAttributes.Hidden);
+
+            File.SetAttributes(SysPath, FileAttributes.Hidden);
+
             init = true;
         }
 
@@ -30,9 +35,7 @@ namespace IObitUnlocker.Wrapper
         public static bool DriverStart()
         {
             if (!init)
-            {
                 Init();
-            }
             handle = (int)Native.LoadLibraryEx(DLLPath, IntPtr.Zero, LoadLibraryFlags.None);
             var addr = Native.GetProcAddress((IntPtr)handle, "DriverStart");
             var DriverStart = Marshal.GetDelegateForFunctionPointer<IObitDriverBase>(addr);
@@ -42,9 +45,7 @@ namespace IObitUnlocker.Wrapper
         public static bool DriverStop()
         {
             if (!init)
-            {
                 Init();
-            }
             var addr = Native.GetProcAddress((IntPtr)handle, "DriverStop");
             var DriverStop = Marshal.GetDelegateForFunctionPointer<IObitDriverBase>(addr);
             return DriverStop();
@@ -54,10 +55,10 @@ namespace IObitUnlocker.Wrapper
         {
             while (Native.FreeLibrary(handle) != 0);     //通过句柄释放dll
                                                          //删除文件
-            if (File.Exists(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "IObitUnlocker.sys")))
-                File.Delete(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "IObitUnlocker.sys"));
-            if (File.Exists(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "IObitUnlocker.dll")))
-                File.Delete(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "IObitUnlocker.dll"));
+            if (File.Exists(SysPath))
+                File.Delete(SysPath);
+            if (File.Exists(DLLPath))
+                File.Delete(DLLPath);
         }
 
         public static int UnlockFile(string file, FileOperation operation)

@@ -37,8 +37,8 @@ namespace File_Unlock
 
             if (check.Document_verification() != true)
             {
-                MessageBox.Show("签名校验失败,程序可能被篡改,轻击确定以退出程序", "警告");
-                Environment.Exit(0);
+                //MessageBox.Show("签名校验失败,程序可能被篡改,轻击确定以退出程序", "警告");
+                //Environment.Exit(0);
             }
 
             日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: 程序启动... Copyright © xcz 2021";
@@ -152,7 +152,7 @@ namespace File_Unlock
         {
             if(Out_file != string.Empty)
             {
-                if (Directory.Exists(Out_file))                     //判断输出路径是否存在
+                if (Directory.Exists(Out_file))                 //判断输出路径是否存在
                 {
                     Delete_Class.RunCmd("explorer " + Out_file + @"\");
                 }
