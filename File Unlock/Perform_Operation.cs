@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IObitUnlocker.Wrapper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,6 @@ namespace File_Unlock
 {
     class Perform_Operation
     {
-
         private static void Log(string str)
         {
             new Thread(() =>//异步调用
@@ -33,12 +33,11 @@ namespace File_Unlock
         static MainWindow window;
         private static void Background_execution(object sender, DoWorkEventArgs e)
         {
-
             for (int i = 0;i < Number_file.Count;i ++)
             {
-                if(File .Exists (Number_file[i].ToString()))
+                if(File.Exists(Number_file[i].ToString()))
                 {
-                    bool Fail = false;                                              //决定是否解锁成功true为失败
+                    bool Fail = false;                                              //决定是否解锁成功
                                                                                     //解锁文件操作
                     if (Delete_Class.Judgment_status(Number_file[i].ToString()))    //判断文件是否被锁定
                     {
@@ -107,6 +106,7 @@ namespace File_Unlock
                     new Action(() =>
                     {
                         window.进度条.IsIndeterminate = false;
+
                     }));
             }).Start();
         }

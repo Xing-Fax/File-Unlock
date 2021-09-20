@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:File_Unlock"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="File_Unlock.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" FontFamily="微软雅黑" AllowsTransparency="True" WindowStyle="None" Background="#00000000" ResizeMode="NoResize" DragEnter="Window_DragEnter" DragLeave="Window_DragLeave" AllowDrop="True">
+        Title="File Unlocker" Height="450" Width="800" FontFamily="微软雅黑" AllowsTransparency="True" WindowStyle="None" Background="#00000000" ResizeMode="NoResize" DragEnter="Window_DragEnter" DragLeave="Window_DragLeave" AllowDrop="True">
     <Window.Resources>
         <Storyboard x:Key="打开">
             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="遮罩">

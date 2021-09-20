@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using IObitUnlocker.Wrapper;
+using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections;
@@ -28,6 +29,7 @@ namespace File_Unlock
     /// </summary>
     public partial class MainWindow : Window
     {
+
         static string Out_file = string.Empty;
         public MainWindow()
         {
@@ -40,8 +42,8 @@ namespace File_Unlock
             }
 
             日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: 程序启动... Copyright © xcz 2021";
-            Log("释放核心库文件");
-            Delete_Class.File_List(Environment.GetEnvironmentVariable("TMP"));              //释放资源
+            Log("释放驱动文件...");
+            IObitController.DriverStart(); //加载驱动
             Log("程序已经准备就绪!");
         }
 
@@ -69,8 +71,6 @@ namespace File_Unlock
             {
                 Log("请添加要操作的文件！");
             }
-
-
         }
 
         public void Log(string str)
@@ -86,9 +86,9 @@ namespace File_Unlock
 
         private void 关闭_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
-            File.Delete (Environment.GetEnvironmentVariable("TMP") + @"\File unlock library.exe"); //删除核心库文件
-            Environment.Exit(0);                                                                   //关闭程序
+            IObitController.DriverStop();  //释放驱动
+            IObitController.DriverClose(); //释放资源
+            Environment.Exit(0);           //关闭程序
         }
 
         private void 最小化_Click(object sender, RoutedEventArgs e)
@@ -152,7 +152,7 @@ namespace File_Unlock
         {
             if(Out_file != string.Empty)
             {
-                if (File.Exists (Out_file))                     //判断输出路径是否存在
+                if (Directory.Exists(Out_file))                     //判断输出路径是否存在
                 {
                     Delete_Class.RunCmd("explorer " + Out_file + @"\");
                 }
