@@ -42,8 +42,6 @@ namespace File_Unlock
             }
 
             日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: 程序启动... Copyright © xcz 2021";
-            Log("释放驱动文件...");
-            IObitController.DriverStart(); //加载驱动
             Log("程序已经准备就绪!");
         }
 
@@ -79,31 +77,9 @@ namespace File_Unlock
             框.ScrollToVerticalOffset(框.ExtentHeight);
         }
 
-        private void 标题_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed) { DragMove(); }
-        }
-
         private void 关闭_Click(object sender, RoutedEventArgs e)
         {
-            IObitController.DriverStop();  //释放驱动
-            IObitController.DriverClose(); //释放资源
             Environment.Exit(0);           //关闭程序
-        }
-
-        private void 最小化_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
-
-        private void 关于_Click(object sender, RoutedEventArgs e)
-        {
-            BeginStoryboard((Storyboard)FindResource("打开"));
-        }
-
-        private void ToggleButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Topmost = (bool)前端显示.IsChecked;
         }
 
         private void 选择路径_Click(object sender, RoutedEventArgs e)
@@ -169,12 +145,52 @@ namespace File_Unlock
             }
         }
 
+        private void 拖入文件_Drop(object sender, DragEventArgs e)
+        {
+            拖入文件.Visibility = Visibility.Collapsed;
+            string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
+            for (int i = 0; i < filePath.Length; i++)
+            {
+                if (App.Number_file.Contains(filePath[i]) == false)//排除同类项
+                {
+                    App.Number_file.Add(filePath[i]);//将元素添加到数组末尾
+                    文件列表.Items.Add(filePath[i]);
+                    日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 已添加文件：" + filePath[i];
+                }
+                else
+                {
+                    日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 添加失败!原因：已存在此文件";
+                }
+            }
+            文件下拉框.Header = "已选择" + App.Number_file.Count + "个对象";
+        }
+
         private void 清空对象_Click(object sender, RoutedEventArgs e)
         {
             App.Number_file.Clear();
             文件列表.Items.Clear();
             文件下拉框.Header = "已选择0个对象";
             日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 已清空文件列表";
+        }
+
+        private void 标题_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed) { DragMove(); }
+        }
+
+        private void 最小化_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void 关于_Click(object sender, RoutedEventArgs e)
+        {
+            BeginStoryboard((Storyboard)FindResource("打开"));
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = (bool)前端显示.IsChecked;
         }
 
         private void 清除日志_Click(object sender, RoutedEventArgs e)
@@ -220,26 +236,6 @@ namespace File_Unlock
         private void Window_DragLeave(object sender, DragEventArgs e)
         {
             拖入文件.Visibility = Visibility.Collapsed;
-        }
-
-        private void 拖入文件_Drop(object sender, DragEventArgs e)
-        {
-            拖入文件.Visibility = Visibility.Collapsed;
-            string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
-            for (int i = 0; i < filePath.Length; i++)
-            {
-                if (App.Number_file.Contains(filePath[i]) == false)//排除同类项
-                {
-                    App.Number_file.Add(filePath[i]);//将元素添加到数组末尾
-                    文件列表.Items.Add(filePath[i]);
-                    日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 已添加文件：" + filePath[i];
-                }
-                else
-                {
-                    日志.Text += "\n[" + DateTime.Now.ToLongTimeString().ToString() + "]: 添加失败!原因：已存在此文件";
-                }
-            }
-            文件下拉框.Header = "已选择" + App.Number_file.Count + "个对象";
         }
     }
 }

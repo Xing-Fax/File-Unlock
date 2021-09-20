@@ -105,7 +105,7 @@ namespace File_Unlock
         {
             try
             {
-                //string temp = Environment.GetEnvironmentVariable("TMP"); //得到用户临时文件夹路径
+                //string temp = Environment.GetEnvironmentVariable("TMP");            //得到用户临时文件夹路径
 
                 var file = Path.Combine(Directory.GetCurrentDirectory(), Path_file);
 
@@ -114,7 +114,7 @@ namespace File_Unlock
                 //Console(temp + @"\File unlock library.exe", "\"" + path + "\"");    //调用库文件进行解锁操作
                 return true;
             }
-            catch                                                        //遇到错误返回失败
+            catch                                                                     //遇到错误返回解锁失败
             {
                 return false;
             }

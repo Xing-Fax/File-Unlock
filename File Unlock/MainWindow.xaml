@@ -82,7 +82,7 @@
         <ProgressBar x:Name="进度条" Margin="0,446,0,0" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="{Binding Stroke, ElementName=背景}" Clip="M0.5,-440.5 C0.5,-443.26142 2.7385763,-445.5 5.5,-445.5 L794.5,-445.5 C797.26142,-445.5 799.5,-443.26142 799.5,-440.5 L799.5,-1.5 C799.5,1.2614237 797.26142,3.5 794.5,3.5 L5.5,3.5 C2.7385763,3.5 0.5,1.2614237 0.5,-1.5 z" />
         <Canvas x:Name="标题" Margin="0,0,0,425" Height="31" Background="#00000000" MouseMove="标题_MouseMove">
             <materialDesign:PackIcon Kind="file" x:Name="图标" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Canvas.Left="5" Canvas.Top="5" Foreground="{Binding Stroke, ElementName=背景}" Background="#00000000" Cursor="Hand"/>
-            <TextBlock x:Name="标题文字" HorizontalAlignment="Left" Height="17.75" TextWrapping="Wrap" Text="文件占用解锁器" VerticalAlignment="Top" Width="117.75" FontSize="14" Canvas.Left="30" Canvas.Top="5"/>
+            <TextBlock x:Name="标题文字" HorizontalAlignment="Left" Height="17.75" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" FontSize="14" Canvas.Left="30" Canvas.Top="5"><Run Text="文件占用解锁器"/><Run Text=" Pro"/></TextBlock>
             <Button x:Name="最小化" Style="{StaticResource MaterialDesignIconButton}" ToolTip="最小化" Height="30" Width="30" Foreground="{Binding Stroke, ElementName=背景}" Canvas.Left="739" Canvas.Top="1" Click="最小化_Click">
                 <materialDesign:PackIcon Kind="Minus"  />
             </Button>
@@ -150,7 +150,7 @@
             </Grid.RenderTransform>
             <Rectangle x:Name="关于背景" Fill="White" HorizontalAlignment="Left" Height="365" RadiusY="5" RadiusX="5" VerticalAlignment="Top" Width="620" Stroke="{Binding Background, ElementName=添加文件}"/>
             <Rectangle x:Name="声明背景" Margin="10,90,10,10" Stroke="{Binding Background, ElementName=添加文件}" RadiusX="5" RadiusY="5"/>
-            <Label x:Name="软件介绍" Content="软件名称： 文件占用解锁器&#xA;版本：       1.0.0.0&#xA;版权：       Copyright © xcz 2021&#xA;反馈邮箱：xczzhouqian@gmail.com" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,10,0,0" Width="370" Height="80"/>
+            <Label x:Name="软件介绍" Content="软件名称： &#x9;文件占用解锁器 Pro&#xA;版本：       &#x9;1.0.0.0&#xA;版权：       &#x9;Copyright © xcz 2021&#xA;反馈邮箱：&#x9;xczzhouqian@gmail.com" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,10,0,0" Width="370" Height="80"/>
             <materialDesign:PackIcon Kind="file" x:Name="关于图标" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="80" MouseUp="图标_MouseUp" Foreground="{Binding Stroke, ElementName=背景}" Background="#00000000" Cursor="Hand" Margin="10,10,0,0"/>
             <ScrollViewer x:Name="声明" HorizontalAlignment="Left" Height="260" VerticalAlignment="Top" Width="590" Margin="20,95,0,0" Padding="1" VerticalScrollBarVisibility="Auto">
                 <TextBlock x:Name="声明文字" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="570" Height="260"><Span FontFamily="宋体"><Run Text="1."/></Span><Span FontFamily="宋体"><Run Text="本软件只限于自然人及非商业用途的使用。这表示任何自然人均可在中华人民共和国境内以非商业用途免费使用本软件。任何组织使用本软件，或任何自然人基于商业用途使用本软件均构成对许可人及其附属合作伙伴的权利侵害，可能导致民事或刑事追究。"/></Span><LineBreak/><Span FontFamily="宋体"><Run Text="2."/></Span><Span FontFamily="宋体"><Run Text="任何人均不得违反中国相关法律、法规及政策的规定使用本软件，或将本软件用于任何违法目的。"/></Span><LineBreak/><Span FontFamily="宋体"><Run Text="3."/></Span><Span FontFamily="宋体"><Run Text="用户在使用本软件过程中应尊重权利人的知识产权，不得修改或去除本软件所附带的版权及其它知识产权标识。"/></Span><LineBreak/><Span FontFamily="宋体"><Run Text="4."/></Span><Span FontFamily="等线"><Run Text=" "/></Span><Span FontFamily="宋体"><Run Text="软件内的功能、代码、源码、一系列资源部分来源于网络、用户提供、原创、个人经验！禁止非法逆向及传播本软件源码。"/></Span><LineBreak/><Span FontFamily="宋体"><Run Text="若本软件侵犯了贵开发者的权利，请联系我们，我们会尽快处理。"/></Span><LineBreak/><Span FontFamily="宋体"><Run Text="5"/></Span><Span><Run Text="."/></Span><Span FontFamily="宋体"><Run Text="安装并使用本软件意味着接受本许可的这些条款和条件。如果您不同意本许可的条款，您必须从您的存储设备中删除本软件全部文件并终止使用本软件。"/></Span></TextBlock>
@@ -172,6 +172,7 @@
             <Rectangle x:Name="rectangle" Stroke="White" StrokeThickness="3" StrokeDashArray="2 2"
                 SnapsToDevicePixels="True" Margin="85.106,120.002,85.106,45" RadiusX="5" RadiusY="5"/>
         </Grid>
+        <CheckBox x:Name="强制解锁" Content="强制模式" HorizontalAlignment="Left" Height="30" Margin="593,150,0,0" VerticalAlignment="Top" Width="75" VerticalContentAlignment="Center" FontSize="13"/>
 
     </Grid>
 </Window>

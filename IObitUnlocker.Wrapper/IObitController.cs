@@ -14,10 +14,12 @@ namespace IObitUnlocker.Wrapper
 
         public static void Init()
         {
+            //写入文件
             File.WriteAllBytes(DLLPath, Properties.Resources.IObitUnlocker);
 
             File.WriteAllBytes(SysPath, Properties.Resources.IObitUnlockerSyS);
 
+            //设置隐藏属性
             File.SetAttributes(DLLPath, FileAttributes.Hidden);
 
             File.SetAttributes(SysPath, FileAttributes.Hidden);
@@ -34,8 +36,7 @@ namespace IObitUnlocker.Wrapper
         static int handle;                              //保存dll句柄
         public static bool DriverStart()
         {
-            if (!init)
-                Init();
+            Init();
             handle = (int)Native.LoadLibraryEx(DLLPath, IntPtr.Zero, LoadLibraryFlags.None);
             var addr = Native.GetProcAddress((IntPtr)handle, "DriverStart");
             var DriverStart = Marshal.GetDelegateForFunctionPointer<IObitDriverBase>(addr);
@@ -44,8 +45,6 @@ namespace IObitUnlocker.Wrapper
 
         public static bool DriverStop()
         {
-            if (!init)
-                Init();
             var addr = Native.GetProcAddress((IntPtr)handle, "DriverStop");
             var DriverStop = Marshal.GetDelegateForFunctionPointer<IObitDriverBase>(addr);
             return DriverStop();

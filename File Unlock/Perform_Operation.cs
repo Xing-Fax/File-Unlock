@@ -1,13 +1,9 @@
 ﻿using IObitUnlocker.Wrapper;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -26,29 +22,40 @@ namespace File_Unlock
                         window.框.ScrollToVerticalOffset(window.框.ExtentHeight);
                     }));
             }).Start();
-
         }
+
         static ArrayList Number_file;
         static string Out_file;
         static MainWindow window;
+        static bool Compulsory = false;
         private static void Background_execution(object sender, DoWorkEventArgs e)
         {
+            IObitController.DriverStart(); //加载驱动
             for (int i = 0;i < Number_file.Count;i ++)
             {
                 if(File.Exists(Number_file[i].ToString()))
                 {
                     bool Fail = false;                                              //决定是否解锁成功
                                                                                     //解锁文件操作
-                    if (Delete_Class.Judgment_status(Number_file[i].ToString()))    //判断文件是否被锁定
+                                                                                    //判断文件是否被锁定
+                    if (Delete_Class.Judgment_status(Number_file[i].ToString()) || Compulsory)    
                     {
+
                         if (Delete_Class.Unlock_file(Number_file[i].ToString()))    //进行解锁文件
                         {
-                            Log("解锁文件：" + Path.GetFileName(Number_file[i].ToString()) + "   成功！");
-                            Fail = true;
+                            if(!Delete_Class.Judgment_status(Number_file[i].ToString()))
+                            {
+                                Log("解锁文件：" + Path.GetFileName(Number_file[i].ToString()) + "   解锁成功！");
+                                Fail = true;
+                            }
+                            else
+                            {
+                                Log("解锁文件：" + Path.GetFileName(Number_file[i].ToString()) + "   解锁失败！");
+                            }
                         }
                         else
                         {
-                            Log("解锁文件：" + Path.GetFileName(Number_file[i].ToString()) + "   失败！");
+                            Log("解锁文件：" + Path.GetFileName(Number_file[i].ToString()) + "   解锁失败！");
                         }
                     }
                     else
@@ -100,13 +107,15 @@ namespace File_Unlock
             }
 
             Log("一共" + Number_file.Count.ToString() + " 个文件执行完毕！");
+            IObitController.DriverStop();  //释放驱动
+            IObitController.DriverClose(); //释放资源
             new Thread(() =>//异步调用
             {
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal,
                     new Action(() =>
                     {
                         window.进度条.IsIndeterminate = false;
-
+                        window.开始.IsEnabled = true;
                     }));
             }).Start();
         }
@@ -120,11 +129,15 @@ namespace File_Unlock
         /// <param name="main">窗体对象</param>
         public static void Operation(ArrayList Number_file0,string Out_file0,MainWindow main)
         {
+            main.开始.IsEnabled = false;
+
             Number_file = Number_file0;
             Out_file = Out_file0;
             window = main;
 
-            if((bool)main.操作3.IsChecked || (bool)main.操作4.IsChecked)
+            Compulsory = (bool)window.强制解锁.IsChecked;
+
+            if ((bool)main.操作3.IsChecked || (bool)main.操作4.IsChecked)
                 if (!File.Exists(Out_file))             //判断输出路径是否存在
                 {
                     Directory.CreateDirectory(Out_file);//创建新路径
