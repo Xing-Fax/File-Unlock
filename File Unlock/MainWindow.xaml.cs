@@ -21,6 +21,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static File_Unlock.Drag_and_drop;
 
 namespace File_Unlock
 {
@@ -29,7 +30,7 @@ namespace File_Unlock
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public FileDropHandler FileDroper; //全局的
         static string Out_file = string.Empty;
         public MainWindow()
         {
@@ -37,10 +38,10 @@ namespace File_Unlock
 
             if (check.Document_verification() != true)
             {
-                //MessageBox.Show("签名校验失败,程序可能被篡改,轻击确定以退出程序", "警告");
-                //Environment.Exit(0);
+                MessageBox.Show("签名校验失败,程序可能被篡改,轻击确定以退出程序", "警告");
+                Environment.Exit(0);
             }
-
+            //FileDroper = new FileDropHandler(); //初始化
             日志.Text += "[" + DateTime.Now.ToLongTimeString().ToString() + "]: 程序启动... Copyright © xcz 2021";
             Log("程序已经准备就绪!");
         }
