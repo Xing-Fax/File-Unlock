@@ -30,6 +30,10 @@
 
 3.点击我提供的下载链接进行下载
 
+## 声明
+
+此项目核心文件采用了第三方IObit Unlocker的驱动文件在项目中引用了其“IObitUnlocker.dll”，“IObitUnlocker.sys”文件，核心代码并没有在项目中列出请须知
+
 ## 最后
 
 软件下载链接：https://wwe.lanzoui.com/b01olbszg 密码:7f7s
